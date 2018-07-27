@@ -1,4 +1,4 @@
-package com.malcolmcrum.leetcode
+package com.malcolmcrum.leetcode.twosum
 
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {

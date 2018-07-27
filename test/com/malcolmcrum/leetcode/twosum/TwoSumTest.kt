@@ -1,4 +1,4 @@
-package com.malcolmcrum.leetcode
+package com.malcolmcrum.leetcode.twosum
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
