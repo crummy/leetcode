@@ -1,13 +1,15 @@
 package com.malcolmcrum.leetcode.addtwonumbers
 
+import java.math.BigDecimal
+
 class Solution {
 	fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
 		return when {
 			l1 == null -> l2
 			l2 == null -> l1
 			else ->  {
-				val result = l1.toLong() + l2.toLong()
-				result.toListNode()
+				val result = BigDecimal(l1.stringify()) + BigDecimal(l2.stringify())
+				return result.toListNode()
 			}
 		}
 	}
@@ -22,11 +24,11 @@ data class ListNode(var `val`: Int = 0) {
 
 }
 
-fun ListNode.toLong(): Long {
-	return ((next?.toLong() ?: "").toString() + `val`).toLong()
+fun ListNode.stringify(): String {
+	return (next?.stringify() ?: "") + `val`
 }
 
-fun Long.toListNode(): ListNode? {
+fun BigDecimal.toListNode(): ListNode? {
 	var lastNode: ListNode? = null
 	this.toString().toList().forEach {
 		val newNode = ListNode(Character.getNumericValue(it))

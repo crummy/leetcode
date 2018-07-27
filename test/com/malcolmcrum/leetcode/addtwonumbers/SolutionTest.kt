@@ -25,9 +25,14 @@ internal class AddTwoNumbersTest {
 		four.next = three
 		assertEquals(342.toListNode(), two)
 	}
+}
 
-	@Test
-	fun `toString prints correctly`() {
-		assertEquals("342", 342.toListNode().toString())
+fun Int.toListNode(): ListNode? {
+	var lastNode: ListNode? = null
+	this.toString().toList().forEach {
+		val newNode = com.malcolmcrum.leetcode.addtwonumbers.ListNode(Character.getNumericValue(it))
+		newNode.next = lastNode
+		lastNode = newNode
 	}
+	return lastNode
 }
