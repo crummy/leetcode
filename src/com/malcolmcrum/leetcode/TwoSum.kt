@@ -2,47 +2,13 @@ package com.malcolmcrum.leetcode
 
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        return TwoSum(nums.toList(), target)
-                .find(0, target)
-                .toIntArray()
-    }
-}
-
-class TwoSum(private val nums: List<Int>, private val target: Int) {
-    fun find(index: Int, remainingTotal: Int): List<Int> {
-		when {
-			index == nums.size && remainingTotal == 0 -> {
-				log(index, "Found solution!")
-				return listOf()
-			}
-			index >= nums.size -> {
-				log(index, "Ran out of elements, went down the wrong path")
-				throw WrongPathException()
-			}
-			Math.abs(remainingTotal - target) < 0 -> {
-				log(index, "Remaining total is $remainingTotal; wrong path")
-				throw WrongPathException()
-			}
-			else -> {
-				(index until nums.size).forEach {
-					return try {
-						log(index,"Checking $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
-						listOf(index).plus(find(it + 1, remainingTotal - nums[index]))
-					} catch (e: WrongPathException) {
-						log(index, "Skipping $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
-						find(it + 1, remainingTotal)
-					}
+		(0 until nums.size).forEach { left ->
+			(left + 1 until nums.size).forEach { right ->
+				if (nums[left] + nums[right] == target) {
+					return listOf(left, right).toIntArray()
 				}
 			}
 		}
-		throw NoPathsFoundException() // should never happen...
-	}
-
-	private fun log(index: Int, message: String) {
-		print(" ".repeat(index))
-		println(message)
-	}
+		throw Exception("No solution found")
+    }
 }
-
-class NoPathsFoundException : Exception()
-class WrongPathException : Exception()

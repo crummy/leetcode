@@ -31,15 +31,9 @@ internal class TwoSumTest {
     }
 
     @Test
-    fun `big numbers`() {
-        val answer = twoSum(listOf(99, 98, 77, 55, 1, 1, 1, 1, 1, 1, 1, 1), 8)
-        assertEquals(listOf(4, 5, 6, 7, 8, 9, 10, 11), answer)
-    }
-
-    @Test
     fun `negative numbers`() {
 		val answer = twoSum(listOf(-1, -2, -3, -4, -5), -8)
-		assertEquals(listOf(0, 1, 4), answer)
+		assertEquals(listOf(2, 4), answer)
 	}
 
 	@Test
