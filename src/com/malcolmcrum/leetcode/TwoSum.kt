@@ -2,37 +2,47 @@ package com.malcolmcrum.leetcode
 
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        return TwoSum(nums.toList(), target)
-                .find(0, 0)
+        return TwoSum(nums.toList())
+                .find(0, target)
                 .toIntArray()
     }
 }
 
-class TwoSum(private val nums: List<Int>, private val target: Int) {
-    fun find(index: Int, total: Int): List<Int> {
-        if (total == target) {
-            return listOf()
-        } else if (index >= nums.size) {
-            throw NoPathFoundException()
-        } else if (total > target) {
-            throw OutOfRangeException()
-        } else {
-            for (next in ((index+1)..nums.size)) {
-                try {
-                    val newTotal = total + nums[index]
-                    return mutableListOf(index).plus(find(next, newTotal))
-                } catch (e: OutOfRangeException) {
-                    return find(next, total)
-                } catch (e: NoPathFoundException) {
-                    return listOf()
-                }
-            }
-            throw Exception("no answer found")
-        }
-    }
+class TwoSum(private val nums: List<Int>) {
+    fun find(index: Int, remainingTotal: Int): List<Int> {
+		print(" ".repeat(index))
+		when {
+			remainingTotal == 0 -> {
+				println("Found solution!")
+				return listOf()
+			}
+			index >= nums.size -> {
+				println("Ran out of elements, went down the wrong path")
+				throw WrongPathException()
+			}
+			remainingTotal < 0 -> {
+				println("Remaining total is $remainingTotal; wrong path")
+				throw WrongPathException()
+			}
+			else -> {
+				(index until nums.size).forEach {
+					try {
+						println("Checking $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
+						return listOf(index).plus(find(it + 1, remainingTotal - nums[index]))
+					} catch (e: WrongPathException) {
+						println("Skipping $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
+						return find(it + 1, remainingTotal)
+					} catch (e: NoPathsFoundException) {
+						println("Skip $index")
+					}
+				}
+			}
+		}
+		throw NoPathsFoundException() // should never happen...
+	}
 }
 
-class OutOfRangeException : Exception()
-class NoPathFoundException : Exception()
+class NoPathsFoundException : Exception()
+class WrongPathException : Exception()
 
 data class Num(val num: Int, val index: Int)
