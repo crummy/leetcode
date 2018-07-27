@@ -10,35 +10,37 @@ class Solution {
 
 class TwoSum(private val nums: List<Int>) {
     fun find(index: Int, remainingTotal: Int): List<Int> {
-		print(" ".repeat(index))
 		when {
 			remainingTotal == 0 -> {
-				println("Found solution!")
+				log(index, "Found solution!")
 				return listOf()
 			}
 			index >= nums.size -> {
-				println("Ran out of elements, went down the wrong path")
+				log(index, "Ran out of elements, went down the wrong path")
 				throw WrongPathException()
 			}
 			remainingTotal < 0 -> {
-				println("Remaining total is $remainingTotal; wrong path")
+				log(index, "Remaining total is $remainingTotal; wrong path")
 				throw WrongPathException()
 			}
 			else -> {
 				(index until nums.size).forEach {
-					try {
-						println("Checking $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
-						return listOf(index).plus(find(it + 1, remainingTotal - nums[index]))
+					return try {
+						log(index,"Checking $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
+						listOf(index).plus(find(it + 1, remainingTotal - nums[index]))
 					} catch (e: WrongPathException) {
-						println("Skipping $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
-						return find(it + 1, remainingTotal)
-					} catch (e: NoPathsFoundException) {
-						println("Skip $index")
+						log(index, "Skipping $index(${nums[index]}) in $nums, remainingTotal: $remainingTotal")
+						find(it + 1, remainingTotal)
 					}
 				}
 			}
 		}
 		throw NoPathsFoundException() // should never happen...
+	}
+
+	private fun log(index: Int, message: String) {
+		print(" ".repeat(index))
+		println(message)
 	}
 }
 
