@@ -11,7 +11,7 @@ class Solution {
 class TwoSum(private val nums: List<Int>, private val target: Int) {
     fun find(index: Int, remainingTotal: Int): List<Int> {
 		when {
-			remainingTotal == 0 -> {
+			index == nums.size && remainingTotal == 0 -> {
 				log(index, "Found solution!")
 				return listOf()
 			}

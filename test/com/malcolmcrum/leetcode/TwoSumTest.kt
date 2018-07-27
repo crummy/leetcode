@@ -42,6 +42,12 @@ internal class TwoSumTest {
 		assertEquals(listOf(0, 1, 4), answer)
 	}
 
+	@Test
+	fun `multiple zeroes add up to zero`() {
+		val answer = twoSum(listOf(0, 4, 3, 0), 0)
+		assertEquals(listOf(0, 3), answer)
+	}
+
     private fun twoSum(nums: List<Int>, target: Int): List<Int> {
         val answer = solution.twoSum(nums.toIntArray(), target).toList()
         val total = answer.sumBy { nums[it] }
