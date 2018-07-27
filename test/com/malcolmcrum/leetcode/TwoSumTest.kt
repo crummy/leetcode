@@ -1,7 +1,7 @@
 package com.malcolmcrum.leetcode
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 internal class TwoSumTest {
     private val solution = Solution()
