@@ -36,6 +36,12 @@ internal class TwoSumTest {
         assertEquals(listOf(4, 5, 6, 7, 8, 9, 10, 11), answer)
     }
 
+    @Test
+    fun `negative numbers`() {
+		val answer = twoSum(listOf(-1, -2, -3, -4, -5), -8)
+		assertEquals(listOf(0, 1, 4), answer)
+	}
+
     private fun twoSum(nums: List<Int>, target: Int): List<Int> {
         val answer = solution.twoSum(nums.toIntArray(), target).toList()
         val total = answer.sumBy { nums[it] }

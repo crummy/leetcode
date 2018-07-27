@@ -2,13 +2,13 @@ package com.malcolmcrum.leetcode
 
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        return TwoSum(nums.toList())
+        return TwoSum(nums.toList(), target)
                 .find(0, target)
                 .toIntArray()
     }
 }
 
-class TwoSum(private val nums: List<Int>) {
+class TwoSum(private val nums: List<Int>, private val target: Int) {
     fun find(index: Int, remainingTotal: Int): List<Int> {
 		when {
 			remainingTotal == 0 -> {
@@ -19,7 +19,7 @@ class TwoSum(private val nums: List<Int>) {
 				log(index, "Ran out of elements, went down the wrong path")
 				throw WrongPathException()
 			}
-			remainingTotal < 0 -> {
+			Math.abs(remainingTotal - target) < 0 -> {
 				log(index, "Remaining total is $remainingTotal; wrong path")
 				throw WrongPathException()
 			}
