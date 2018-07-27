@@ -46,5 +46,3 @@ class TwoSum(private val nums: List<Int>) {
 
 class NoPathsFoundException : Exception()
 class WrongPathException : Exception()
-
-data class Num(val num: Int, val index: Int)
